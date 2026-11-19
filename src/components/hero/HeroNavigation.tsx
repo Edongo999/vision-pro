@@ -62,7 +62,7 @@ export default function HeroNavigation({
         </div>
 
         {/* FLÈCHES */}
-        <div className="flex items-center gap-2 sm:gap-3 -translate-y-8 md:-translate-y-8">
+        <div className="flex items-center gap-2 sm:gap-3 -translate-x-4 md:translate-x-0  -translate-y-8 md:-translate-y-8">
           <button
             onClick={() => swiperInstance?.slidePrev()}
             aria-label="Diapositive précédente"

@@ -18,10 +18,10 @@ export default function Home() {
         <InfoBanner />
         <About />
         <Formations />
-        <WhatsAppFloatingButton />
       </main>
 
       <Footer />
+      <WhatsAppFloatingButton />
     </>
   );
 }
