@@ -17,13 +17,13 @@ export default function Hero() {
   return (
     <section
       className="
-  relative isolate
-  h-auto min-h-[620px]
-  w-full overflow-hidden
-  bg-[#10243A]
-  md:h-[540px] md:min-h-[540px] md:max-h-[540px]
-  xl:h-[580px] xl:min-h-[580px] xl:max-h-[580px]
-"
+        relative isolate
+        h-auto min-h-[620px]
+        w-full overflow-hidden
+        bg-[#202124]
+        md:h-[540px] md:min-h-[540px] md:max-h-[540px]
+        xl:h-[580px] xl:min-h-[580px] xl:max-h-[580px]
+      "
     >
       {/* BACKGROUND SLIDER */}
       <div className="pointer-events-none absolute inset-0 z-0">
@@ -35,7 +35,10 @@ export default function Hero() {
       </div>
 
       {/* OVERLAY */}
-      <div className="pointer-events-none absolute inset-0 z-10 bg-[#10243A]/60" />
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-[#202124]/85 via-[#202124]/60 to-[#202124]/30" />
+
+      {/* RED ACCENT */}
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-tr from-transparent via-transparent to-[#E31E24]/10" />
 
       {/* CONTENT */}
       <div
@@ -47,7 +50,6 @@ export default function Hero() {
           sm:px-8 sm:pt-24
           md:h-full md:min-h-0
           md:px-12 md:pb-20 md:pt-4
-        
         "
       >
         <HeroContent activeSlide={activeSlide} />

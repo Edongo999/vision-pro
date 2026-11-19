@@ -3,41 +3,41 @@ import { FaFacebookF } from "react-icons/fa";
 
 export default function TopBar() {
   return (
-    <div className="hidden bg-[#10243A] text-white md:block">
+    <div className="hidden bg-[#E31E24] text-white md:block">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-3">
-        {/* Localisation */}
+        {/* LOCALISATION */}
         <div className="flex items-center gap-2 text-xs">
-          <MapPin size={15} className="shrink-0 text-[#56D5CC]" />
-          <span>Chapelle Nsimeyong, descente Tam-Tam, Yaoundé</span>
+          <MapPin size={15} className="shrink-0 text-white" />
+          <span>En face Cefor Hotellerie logpom, Douala</span>
         </div>
 
-        {/* Coordonnées et réseaux sociaux */}
-        <div className="flex flex-wrap items-center gap-4 text-xs">
+        {/* COORDONNÉES ET RÉSEAUX SOCIAUX */}
+        <div className="flex flex-wrap items-center gap-5 text-xs">
           <a
             href="tel:+237674502450"
-            className="flex items-center gap-2 transition-colors hover:text-[#56D5CC]"
+            className="flex items-center gap-2 transition-colors hover:text-white/75"
           >
-            <Phone size={14} className="text-[#56D5CC]" />
-            +237 674 502 450
+            <Phone size={14} className="text-white" />
+            +237 687 884 178
           </a>
 
           <a
             href="tel:+237691095519"
-            className="flex items-center gap-2 transition-colors hover:text-[#56D5CC]"
+            className="flex items-center gap-2 transition-colors hover:text-white/75"
           >
-            <Phone size={14} className="text-[#56D5CC]" />
-            +237 691 095 519
+            <Phone size={14} className="text-white" />
+            +237 659 322 137
           </a>
 
           <a
-            href="https://www.facebook.com/VOTRE_PAGE"
+            href="https://www.facebook.com/61566458520229/"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Visiter notre page Facebook"
-            className="flex items-center gap-2 transition-colors hover:text-[#56D5CC]"
+            aria-label="Visiter la page Facebook de VISION PRO"
+            className="flex items-center gap-2 transition-colors hover:text-white/75"
           >
             <FaFacebookF size={14} />
-            Facebook
+            Suivez-nous
           </a>
         </div>
       </div>

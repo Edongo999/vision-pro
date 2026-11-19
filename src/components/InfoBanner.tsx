@@ -1,100 +1,103 @@
-import { Clock3, CalendarCheck, Handshake, ArrowUpRight } from "lucide-react";
+"use client";
 
+import { useEffect, useRef, useState } from "react";
 import ScrollReveal from "@/components/ScrollReveal";
 
-const information = [
+const statistics = [
   {
-    icon: Clock3,
-    label: "HORAIRES D'OUVERTURE",
-    title: "Lundi – Vendredi",
-    description: "08h00 – 17h00",
+    value: 50,
+    suffix: "+",
+    label: "Ans d'expérience",
   },
   {
-    icon: CalendarCheck,
-    label: "ADMISSIONS",
-    title: "Inscriptions ouvertes",
-    description: "Renseignez-vous auprès de notre administration.",
+    value: 1800,
+    suffix: "+",
+    label: "Apprenants formés",
   },
   {
-    icon: Handshake,
-    label: "NOTRE ENGAGEMENT",
-    title: "À vos côtés à chaque étape",
-    description: "Un accompagnement tout au long de votre parcours.",
+    value: 100,
+    suffix: "%",
+    label: "Engagement qualité",
   },
 ];
 
+function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
+  const [count, setCount] = useState(0);
+  const counterRef = useRef<HTMLSpanElement>(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const element = counterRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+
+          const duration = 2000;
+          const startTime = performance.now();
+
+          const animate = (currentTime: number) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            // Animation progressive avec ralentissement à la fin
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+
+            setCount(Math.floor(easeOut * value));
+
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            } else {
+              setCount(value);
+            }
+          };
+
+          requestAnimationFrame(animate);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.5,
+      },
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [value]);
+
+  return (
+    <span ref={counterRef}>
+      {count.toLocaleString("fr-FR")}
+      {suffix}
+    </span>
+  );
+}
+
 export default function InfoBanner() {
   return (
-    <section className="relative z-30 mt-4 px-5 pb-12 sm:mt-2 sm:px-8 md:-mt-12 lg:px-10">
-      {/* FOND BLANC SOUS LA ZONE DE CHEVAUCHEMENT */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-20 bg-white" />
+    <section className="relative z-20 w-full bg-[#E31E24]">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-3 divide-x divide-white/30 px-2 py-3 sm:px-8 sm:py-5 lg:px-12">
+        {statistics.map((item, index) => (
+          <ScrollReveal
+            key={item.label}
+            delay={index * 0.15}
+            duration={0.9}
+            distance={10}
+          >
+            <div className="flex flex-col items-center justify-center px-1 text-center sm:px-2">
+              <span className="text-lg font-extrabold leading-none tracking-tight text-white sm:text-3xl md:text-4xl">
+                <AnimatedCounter value={item.value} suffix={item.suffix} />
+              </span>
 
-      <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-4 md:grid-cols-3">
-          {information.map((item, index) => {
-            const Icon = item.icon;
-
-            return (
-              <ScrollReveal
-                key={item.label}
-                delay={index * 0.2}
-                duration={1.2}
-                distance={22}
-              >
-                <div
-                  className="
-                    group flex min-h-[170px] items-start gap-4
-                    rounded-2xl bg-[#16A6A1] p-6 text-white
-                    transition-all duration-300
-                    hover:-translate-y-1 hover:bg-[#128C87]
-                    hover:shadow-lg hover:shadow-[#16A6A1]/20
-                  "
-                >
-                  {/* ICÔNE */}
-                  <div
-                    className="
-                      flex h-12 w-12 shrink-0 items-center justify-center
-                      rounded-xl bg-white/15 text-white
-                      transition-colors duration-300
-                      group-hover:bg-white group-hover:text-[#16A6A1]
-                    "
-                  >
-                    <Icon size={25} strokeWidth={1.8} />
-                  </div>
-
-                  {/* CONTENU */}
-                  <div className="min-w-0">
-                    <p className="text-xs font-bold tracking-[0.14em] text-white/90">
-                      {item.label}
-                    </p>
-
-                    <h3 className="mt-2 text-lg font-bold leading-snug text-white sm:text-xl">
-                      {item.title}
-                    </h3>
-
-                    <p className="mt-2 text-sm leading-7 text-white/95">
-                      {item.description}
-                    </p>
-
-                    {item.label === "ADMISSIONS" && (
-                      <a
-                        href="#contact"
-                        className="
-                          mt-3 inline-flex items-center gap-1
-                          text-sm font-bold text-white
-                          transition-opacity hover:opacity-80
-                        "
-                      >
-                        Nous contacter
-                        <ArrowUpRight size={16} />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </ScrollReveal>
-            );
-          })}
-        </div>
+              <span className="mt-1.5 text-[8px] font-semibold uppercase leading-tight tracking-wide text-white/90 sm:mt-2 sm:text-xs md:text-sm">
+                {item.label}
+              </span>
+            </div>
+          </ScrollReveal>
+        ))}
       </div>
     </section>
   );

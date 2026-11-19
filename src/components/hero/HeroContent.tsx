@@ -95,10 +95,10 @@ export default function HeroContent({ activeSlide }: Props) {
                 ease: [0.22, 1, 0.36, 1],
               }}
               style={{ transformOrigin: "left" }}
-              className="h-[2px] w-8 shrink-0 bg-[#16A6A1] sm:w-10"
+              className="h-[2px] w-8 shrink-0 bg-[#E31E24] sm:w-10"
             />
 
-            <span className="text-[11px] font-bold tracking-[0.14em] text-[#65DDD3] sm:text-xs sm:tracking-[0.18em] md:text-sm">
+            <span className="text-[11px] font-bold tracking-[0.14em] text-[#FF777B] sm:text-xs sm:tracking-[0.18em] md:text-sm">
               {activeSlide.eyebrow}
             </span>
           </motion.div>
@@ -125,7 +125,7 @@ export default function HeroContent({ activeSlide }: Props) {
             <motion.div variants={itemVariants}>
               <Link
                 href={activeSlide.link}
-                className="inline-flex w-full items-center justify-center gap-3 rounded-lg bg-[#16A6A1] px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#128C87] hover:shadow-lg hover:shadow-[#16A6A1]/20 sm:w-auto"
+                className="inline-flex w-full items-center justify-center gap-3 rounded-lg bg-[#E31E24] px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#C7191F] hover:shadow-lg hover:shadow-[#E31E24]/25 sm:w-auto"
               >
                 {activeSlide.button}
                 <ArrowRight size={18} />
@@ -137,7 +137,7 @@ export default function HeroContent({ activeSlide }: Props) {
               <button
                 type="button"
                 onClick={() => setRegistrationOpen(true)}
-                className="inline-flex w-full items-center justify-center gap-3 rounded-lg border border-white/40 px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:border-white hover:bg-white/10 sm:w-auto"
+                className="inline-flex w-full items-center justify-center gap-3 rounded-lg border border-white/40 px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:border-[#E31E24] hover:bg-[#E31E24]/15 sm:w-auto"
               >
                 S'inscrire
                 <ArrowUpRight size={18} />

@@ -7,255 +7,201 @@ import { motion } from "framer-motion";
 
 import {
   ArrowUpRight,
-  BookOpen,
-  HeartHandshake,
-  Target,
-  BriefcaseBusiness,
-  Plus,
   HeartPulse,
+  GraduationCap,
+  ShieldCheck,
+  CheckCircle2,
 } from "lucide-react";
 
-const engagements = [
+const values = [
   {
-    icon: BookOpen,
-    title: "Accompagnement pédagogique",
+    icon: GraduationCap,
+    title: "Formation professionnelle",
+    description: "Développer des connaissances et des compétences utiles.",
   },
   {
-    icon: Target,
-    title: "Développement des compétences",
+    icon: HeartPulse,
+    title: "Approche humaine",
+    description: "Placer l'humain et l'accompagnement au cœur de la démarche.",
   },
   {
-    icon: HeartHandshake,
-    title: "Apprentissage pratique",
-  },
-  {
-    icon: BriefcaseBusiness,
-    title: "Préparation professionnelle",
+    icon: ShieldCheck,
+    title: "Engagement qualité",
+    description: "Encourager la rigueur et le sens des responsabilités.",
   },
 ];
-
-const imageContainerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.16,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const imageItemVariants = {
-  hidden: {
-    opacity: 0,
-    y: 18,
-    scale: 0.97,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.9,
-      ease: [0.16, 1, 0.3, 1] as const,
-    },
-  },
-};
 
 export default function About() {
   return (
     <section
       id="institut"
-      className="overflow-hidden bg-white py-1 sm:py-16 lg:py-0"
+      className="relative overflow-hidden bg-white py-8 md:py-10"
     >
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-        <div className="grid grid-cols-1 items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* CONTENU - PREMIER SUR MOBILE */}
-          <div className="order-1 text-center lg:order-2 lg:py-4 lg:text-left">
-            {/* SURTITRE */}
-            <ScrollReveal>
-              <div className="mb-4 flex items-center justify-center gap-3 sm:mb-5 lg:justify-start">
-                <span className="h-[2px] w-8 bg-[#16A6A1]" />
-                <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#16A6A1] sm:text-xs sm:tracking-[0.2em]">
-                  À propos de nous
-                </span>
+      {/* Décoration d'arrière-plan */}
+      <div className="pointer-events-none absolute -left-40 top-40 h-96 w-96 rounded-full bg-[#E31E24]/[0.035] blur-3xl" />
+      <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-gray-100 blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+        {/* En-tête centré */}
+        <ScrollReveal>
+          <div className="mx-auto mb-1 md:mb-10 max-w-3xl text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#E31E24]/15 bg-[#E31E24]/[0.05] px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#E31E24]">
+              <span className="h-2 w-2 rounded-full bg-[#E31E24]" />
+              Découvrez notre institut
+            </span>
+
+            <h2 className="mt-6 text-4xl font-black tracking-tight text-[#202124] sm:text-5xl lg:text-6xl">
+              À propos <span className="text-[#E31E24]">de nous</span>
+            </h2>
+          </div>
+        </ScrollReveal>
+
+        {/* Contenu principal */}
+        <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-20">
+          {/* Zone des deux photos */}
+          <motion.div
+            initial={{ opacity: 0, x: -45 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative mx-auto w-full max-w-[570px]"
+          >
+            {/* Bloc des photos */}
+            <div className="relative z-10 grid grid-cols-[1.08fr_0.82fr] items-start gap-3 sm:gap-5">
+              {/* Photo principale */}
+              <div className="relative mt-8">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-tl-[3rem] rounded-br-[3rem] bg-gray-100 shadow-2xl shadow-black/10">
+                  <Image
+                    src="/images/ifp-medhe/about.jpg"
+                    alt="Présentation de Vision Pro"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 55vw, 320px"
+                    className="object-cover transition-transform duration-700 hover:scale-105"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                </div>
+
+                {/* Petit accent rouge */}
+                <div className="absolute -bottom-3 -left-3 h-16 w-16 rounded-bl-2xl border-b-4 border-l-4 border-[#E31E24]" />
               </div>
-            </ScrollReveal>
 
-            {/* TITRE */}
-            <ScrollReveal delay={0.1}>
-              <h2 className="mx-auto max-w-xl text-2xl font-bold leading-[1.2] tracking-tight text-[#10243A] sm:text-4xl lg:mx-0 lg:text-[46px]">
-                Bienvenue à <span className="text-[#16A6A1]">IFP MEDHE</span>
-              </h2>
-            </ScrollReveal>
+              {/* Deuxième photo */}
+              <div className="relative mt-20 sm:mt-28">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-tr-[3rem] rounded-bl-[3rem] border-[5px] border-white bg-gray-100 shadow-2xl shadow-black/15">
+                  <Image
+                    src="/images/ifp-medhe/hero1.jpg"
+                    alt="Activités et environnement de Vision Pro"
+                    fill
+                    sizes="(max-width: 768px) 40vw, 250px"
+                    className="object-cover transition-transform duration-700 hover:scale-105"
+                  />
 
-            {/* DESCRIPTION */}
-            <ScrollReveal delay={0.2}>
-              <div className="mx-auto mt-4 max-w-xl text-justify text-sm leading-7 text-slate-600 [text-align-last:left] sm:mt-6 sm:text-[15px] lg:mx-0 lg:text-left">
-                <p>
-                  Se former, acquérir des compétences et se préparer à exercer
-                  un métier qui a du sens.
-                </p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#202124]/30 to-transparent" />
+                </div>
 
-                <p className="mt-3 text-slate-500">
-                  IFP MEDHE accompagne les apprenants dans leur parcours de
-                  formation professionnelle à travers une approche associant
-                  connaissances théoriques et apprentissage pratique.
-                </p>
-
-                <p className="mt-3 text-slate-500">
-                  L'institut met l'accent sur le développement des compétences
-                  et la préparation aux métiers de l'accompagnement des
-                  personnes et de la petite enfance.
-                </p>
-              </div>
-            </ScrollReveal>
-
-            {/* ENGAGEMENTS */}
-            <div className="mx-auto mt-6 max-w-xl border-t border-slate-200 pt-5 sm:mt-8 lg:mx-0">
-              <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-                {engagements.map((item, index) => {
-                  const Icon = item.icon;
-
-                  return (
-                    <ScrollReveal
-                      key={item.title}
-                      delay={0.35 + index * 0.15}
-                      distance={20}
-                    >
-                      <div className="group flex min-h-[82px] items-center gap-2.5 rounded-lg border border-[#1B3A56] bg-[#10243A] px-3 py-3 text-left transition-all duration-300 hover:-translate-y-1 hover:bg-[#1B3A56] hover:shadow-lg hover:shadow-[#10243A]/10 sm:min-h-[76px] sm:gap-3 sm:px-4 sm:py-4">
-                        <Icon
-                          size={19}
-                          strokeWidth={1.8}
-                          className="shrink-0 text-[#65D1C9] transition-transform duration-300 group-hover:scale-110 sm:h-5 sm:w-5"
-                        />
-
-                        <span className="text-xs font-semibold leading-snug text-[#F1F5F9] sm:text-sm">
-                          {item.title}
-                        </span>
-                      </div>
-                    </ScrollReveal>
-                  );
-                })}
+                {/* Accent rouge */}
+                <div className="absolute -right-3 -top-3 h-16 w-16 rounded-tr-2xl border-r-4 border-t-4 border-[#E31E24]" />
               </div>
             </div>
 
-            {/* CTA */}
-            <ScrollReveal delay={0.9}>
+            {/* Badge central superposé */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.35, duration: 0.6 }}
+              className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 items-center gap-3 whitespace-nowrap rounded-2xl border border-white/70 bg-white/95 px-4 py-3 shadow-xl backdrop-blur-md sm:bottom-10 sm:px-6 sm:py-4"
+            >
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E31E24] text-white">
+                <HeartPulse size={23} />
+              </div>
+
+              <div>
+                <p className="text-sm font-black tracking-wide text-[#202124]">
+                  VISION PRO
+                </p>
+                <p className="mt-0.5 text-[10px] font-medium text-gray-500 sm:text-xs">
+                  Formation professionnelle & santé
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Signature sous les images */}
+            <div className="mt-12 flex items-center gap-3 pl-2">
+              <span className="h-[2px] w-10 bg-[#E31E24]" />
+              <span className="text-xs font-bold uppercase tracking-[0.22em] text-gray-500">
+                VISION PRO
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Présentation textuelle */}
+          <motion.div
+            initial={{ opacity: 0, x: 45 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <p className="-mt-10 md:mt-5 text-justify text-base leading-8 text-gray-600 [text-align-last:left]">
+              VISION PRO s'inscrit dans une démarche de formation
+              professionnelle et de développement des compétences. Notre
+              approche met l'accent sur l'apprentissage, l'accompagnement et la
+              préparation à la vie professionnelle.
+            </p>
+
+            <p className="mt-4 text-justify text-base leading-8 text-gray-600 [text-align-last:left]">
+              À travers notre engagement, nous souhaitons contribuer à
+              l'acquisition de connaissances solides et de compétences adaptées
+              aux exigences du monde professionnel.
+            </p>
+
+            {/* Valeurs */}
+            <div className="mt-9 space-y-5">
+              {values.map((value, index) => {
+                const Icon = value.icon;
+
+                return (
+                  <motion.div
+                    key={value.title}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.12, duration: 0.5 }}
+                    className="group flex items-start gap-4"
+                  >
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#E31E24]/[0.08] text-[#E31E24] transition-all duration-300 group-hover:bg-[#E31E24] group-hover:text-white">
+                      <Icon size={22} />
+                    </div>
+
+                    <div className="pt-0.5">
+                      <h4 className="font-bold text-[#202124]">
+                        {value.title}
+                      </h4>
+                      <p className="mt-1 text-sm leading-6 text-gray-500">
+                        {value.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Bouton */}
+            <div className="mt-10">
               <Link
                 href="/a-propos"
-                className="mx-auto mt-6 inline-flex w-full max-w-xl items-center justify-center gap-3 rounded-md bg-[#10243A] px-5 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#1B3A56] hover:shadow-lg hover:shadow-[#10243A]/15 sm:mt-8 sm:w-auto sm:px-6 sm:py-4 lg:mx-0"
+                className="group inline-flex items-center gap-3 rounded-xl bg-[#E31E24] px-7 py-4 text-sm font-bold text-white shadow-lg shadow-[#E31E24]/20 transition-all duration-300 hover:-translate-y-1 hover:bg-[#bd171c] hover:shadow-xl hover:shadow-[#E31E24]/25"
               >
                 En savoir plus
-                <ArrowUpRight size={18} />
-              </Link>
-            </ScrollReveal>
-          </div>
-
-          {/* IMAGE - DEUXIÈME SUR MOBILE */}
-          <ScrollReveal
-            delay={0.15}
-            distance={35}
-            className="relative isolate order-2 mx-auto w-full max-w-[600px] lg:order-1"
-          >
-            {/* COMPOSITION ANIMÉE */}
-            <motion.div
-              variants={imageContainerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.15 }}
-              className="relative"
-            >
-              {/* CADRE DÉCORATIF */}
-              <motion.div
-                variants={imageItemVariants}
-                className="absolute -bottom-3 -left-3 -z-10 h-full w-full rounded-2xl border-2 border-[#16A6A1]/30 sm:-bottom-5 sm:-left-5"
-              />
-
-              {/* HALO TURQUOISE */}
-              <motion.div
-                variants={imageItemVariants}
-                className="absolute -right-5 -top-5 -z-10 h-32 w-32 rounded-full bg-[#16A6A1]/10 blur-3xl animate-pulse sm:-right-8 sm:-top-8 sm:h-40 sm:w-40"
-              />
-
-              {/* ÉLÉMENT CIRCULAIRE ANIMÉ */}
-              <motion.div
-                variants={imageItemVariants}
-                className="absolute -right-3 -top-3 z-20 hidden h-16 w-16 items-center justify-center rounded-full border border-dashed border-[#16A6A1]/50 bg-white/70 backdrop-blur-sm animate-[spin_25s_linear_infinite] sm:flex sm:-right-5 sm:-top-5 sm:h-20 sm:w-20"
-              >
-                <div className="h-3 w-3 rounded-full bg-[#16A6A1]" />
-              </motion.div>
-
-              {/* IMAGE PRINCIPALE */}
-              <motion.div
-                variants={imageItemVariants}
-                className="group relative aspect-[5/4] overflow-hidden rounded-xl bg-slate-100 shadow-xl shadow-[#10243A]/10 sm:aspect-[5/4] sm:rounded-2xl"
-              >
-                <Image
-                  src="/images/ifp-medhe/about.jpg"
-                  alt="Institut de formation professionnelle IFP MEDHE"
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+                <ArrowUpRight
+                  size={18}
+                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
                 />
-
-                {/* VOILE DÉGRADÉ */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#10243A]/80 via-transparent to-[#10243A]/10" />
-
-                {/* ÉLÉMENTS GRAPHIQUES */}
-                <motion.div
-                  variants={imageItemVariants}
-                  className="absolute right-3 top-3 flex gap-1 text-white/80 sm:right-5 sm:top-5 sm:gap-2"
-                >
-                  <Plus size={18} strokeWidth={2.5} />
-                  <Plus size={18} strokeWidth={2.5} />
-                </motion.div>
-
-                {/* BADGE */}
-                <motion.div
-                  variants={imageItemVariants}
-                  className="absolute left-3 top-3 flex max-w-[calc(100%-55px)] items-center gap-2 rounded-full border border-white/25 bg-[#10243A]/60 px-3 py-2 text-white shadow-lg backdrop-blur-md sm:left-5 sm:top-5 sm:px-4"
-                >
-                  <HeartPulse size={15} className="shrink-0 text-[#65D1C9]" />
-                  <span className="truncate text-[9px] font-bold tracking-[0.10em] sm:text-[10px] sm:tracking-[0.15em]">
-                    FORMATION & ACCOMPAGNEMENT
-                  </span>
-                </motion.div>
-
-                {/* SIGNATURE VISUELLE */}
-                <motion.div
-                  variants={imageItemVariants}
-                  className="absolute bottom-3 left-3 right-3 sm:bottom-7 sm:left-7 sm:right-7"
-                >
-                  <div className="max-w-[280px] border-l-[3px] border-[#65D1C9] bg-[#10243A]/90 px-4 py-3 text-white shadow-xl backdrop-blur-md sm:max-w-[300px] sm:px-6 sm:py-5">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#65D1C9] sm:text-xs sm:tracking-[0.18em]">
-                      IFP MEDHE
-                    </p>
-                    <p className="mt-1.5 text-base font-semibold leading-snug sm:mt-2 sm:text-xl">
-                      La formation au service de l'humain.
-                    </p>
-                  </div>
-                </motion.div>
-              </motion.div>
-
-              {/* PETITS POINTS DÉCORATIFS */}
-              <motion.div
-                variants={imageItemVariants}
-                className="absolute -bottom-6 right-5 flex gap-1.5 sm:-bottom-8 sm:right-8 sm:gap-2"
-              >
-                {[1, 2, 3, 4, 5].map((item) => (
-                  <span
-                    key={item}
-                    className={`h-1.5 w-1.5 rounded-full sm:h-2 sm:w-2 ${
-                      item === 1 || item === 5
-                        ? "bg-[#16A6A1]"
-                        : "bg-[#16A6A1]/25"
-                    }`}
-                  />
-                ))}
-              </motion.div>
-            </motion.div>
-          </ScrollReveal>
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

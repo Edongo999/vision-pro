@@ -2,40 +2,44 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import ScrollReveal from "@/components/ScrollReveal";
+import { motion } from "framer-motion";
+import {
+  ArrowUpRight,
+  GraduationCap,
+  HeartPulse,
+  Pill,
+  Sparkles,
+} from "lucide-react";
 
-import { ArrowUpRight, HeartHandshake, Baby, CheckCircle2 } from "lucide-react";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const formations = [
   {
     id: 1,
-    category: "SANTÉ ET ACCOMPAGNEMENT",
-    title: "Auxiliaire de Vie Sociale",
+    category: "Promotion de la santé",
+    title: "Délégué médical",
     description:
-      "Développez les compétences nécessaires pour accompagner les personnes âgées et les personnes en situation de handicap dans leur quotidien.",
-    image: "/images/ifp-medhe/auxilliare.jpg",
-    alt: "Formation en accompagnement des personnes âgées",
-    icon: HeartHandshake,
-    skills: [
-      "Accompagnement au quotidien",
-      "Hygiène et confort",
-      "Accompagnement des personnes dépendantes",
-    ],
+      "Développez les compétences nécessaires pour représenter et promouvoir les produits de santé auprès des professionnels du secteur médical.",
+    image: "/images/ifp-medhe/delegue-medical.jpg",
+    icon: GraduationCap,
   },
   {
     id: 2,
-    category: "PETITE ENFANCE",
-    title: "Auxiliaire de Puériculture",
+    category: "Secteur pharmaceutique",
+    title: "Auxiliaire de pharmacie",
     description:
-      "Préparez-vous à accompagner les nourrissons et les jeunes enfants en participant à leur bien-être, leur éveil et leur développement.",
-    image: "/images/ifp-medhe/enfant.jpg",
-    alt: "Formation en accompagnement de la petite enfance",
-    icon: Baby,
-    skills: [
-      "Soins et hygiène de l'enfant",
-      "Éveil et développement",
-      "Accompagnement du jeune enfant",
-    ],
+      "Apprenez à assister les professionnels de pharmacie dans leurs activités quotidiennes et développez des compétences adaptées à cet environnement.",
+    image: "/images/ifp-medhe/auxiliaire-pharmacie.jpg",
+    icon: Pill,
+  },
+  {
+    id: 3,
+    category: "Accompagnement humain",
+    title: "Auxiliaire de vie",
+    description:
+      "Préparez-vous à accompagner les personnes dans leur quotidien, à contribuer à leur bien-être et à répondre à leurs besoins avec attention.",
+    image: "/images/ifp-medhe/auxilliare.jpg",
+    icon: HeartPulse,
   },
 ];
 
@@ -43,166 +47,147 @@ export default function Formations() {
   return (
     <section
       id="formations"
-      className="relative border-t border-[#16A6A1]/15 bg-[#F1F6F8] py-8 sm:py-20 lg:py-8"
+      className="relative isolate overflow-hidden bg-[#F7F5F5] py-7 md:py-5"
     >
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-        {/* EN-TÊTE */}
-        <div className="mb-10 w-full sm:mb-14">
-          {/* SURTITRE */}
-          <ScrollReveal distance={15}>
-            <div className="mb-4 flex items-center justify-center gap-3">
-              <span className="h-[2px] w-8 bg-[#16A6A1]" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#16A6A1] sm:text-xs">
-                Nos formations
-              </span>
-              <span className="h-[2px] w-8 bg-[#16A6A1]" />
+      {/* Décoration d'arrière-plan */}
+      <div className="pointer-events-none absolute -right-40 top-10 h-[450px] w-[450px] rounded-full bg-red-100/50 blur-[100px]" />
+      <div className="pointer-events-none absolute -left-40 bottom-20 h-[400px] w-[400px] rounded-full bg-white/80 blur-[100px]" />
+
+      {/* Contenu principal */}
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+        {/* En-tête */}
+        <ScrollReveal>
+          <div className="mb-16 w-full">
+            {/* Badge centré */}
+            <div className="mb-5 flex justify-center">
+              <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm shadow-gray-200/70">
+                <span className="h-2 w-2 rounded-full bg-[#E31E24]" />
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#E31E24]">
+                  Apprendre & évoluer
+                </span>
+              </div>
             </div>
-          </ScrollReveal>
 
-          {/* TITRE */}
-          <ScrollReveal delay={0.1} distance={20}>
-            <h2 className="text-center text-3xl font-bold leading-tight tracking-tight text-[#10243A] sm:text-4xl lg:text-[46px]">
-              Construisez votre avenir{" "}
-              <span className="text-[#16A6A1]">professionnel</span>
+            {/* Titre centré */}
+            <h2 className="text-center text-3xl font-extrabold tracking-tight text-[#202124] sm:text-4xl md:text-5xl">
+              Nos <span className="text-[#E31E24]">formations</span>
             </h2>
-          </ScrollReveal>
 
-          {/* DESCRIPTION */}
-          <ScrollReveal delay={0.1} distance={20}>
-            <p
-              className="
-                mt-4
-                w-full
-                max-w-[1200px]
-                text-justify
-                text-sm
-                leading-7
-                text-slate-600
-                hyphens-auto
-                [overflow-wrap:break-word]
-                sm:text-[15px]
-              "
-            >
-              À IFP MEDHE, nous proposons des parcours de formation conçus pour
-              vous transmettre des connaissances solides, développer vos
-              compétences pratiques et vous préparer aux réalités du monde
-              professionnel. Que vous souhaitiez accompagner les personnes
-              âgées, intervenir auprès des personnes en situation de handicap ou
-              contribuer au bien-être et à l'épanouissement des jeunes enfants,
-              nos formations vous permettent de vous préparer à exercer un
-              métier fondé sur l'écoute, la responsabilité et le sens humain.
+            {/* Description */}
+            <p className="mt-6 w-full text-left text-justify text-[14px] leading-7 text-slate-600 sm:text-[15px] md:text-base md:leading-[1.9] lg:text-[17px] lg:leading-[2]">
+              Découvrez les formations professionnelles proposées par VISION PRO
+              dans les métiers de la santé. À travers des programmes axés sur
+              l'apprentissage et le développement des compétences, nous vous
+              accompagnons dans l'acquisition de connaissances pratiques et
+              théoriques pour mieux vous préparer aux exigences du monde
+              professionnel et construire votre avenir.
             </p>
-          </ScrollReveal>
-        </div>
+          </div>
+        </ScrollReveal>
 
-        {/* CARTES DES FORMATIONS */}
-        <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+        {/* Cartes de formation */}
+        <div className="-mt-8 grid gap-8 md:mt-0 md:grid-cols-2 lg:grid-cols-3">
           {formations.map((formation, index) => {
             const Icon = formation.icon;
 
             return (
-              <ScrollReveal key={formation.id} delay={0.1} distance={30}>
-                <article className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#10243A]/10">
-                  {/* IMAGE */}
-                  <ScrollReveal delay={0.05} distance={20}>
-                    <div className="relative aspect-[16/9] overflow-hidden bg-[#10243A]">
-                      <Image
-                        src={formation.image}
-                        alt={formation.alt}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
+              <motion.article
+                key={formation.id}
+                initial={{ opacity: 0, y: 35 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.15,
+                }}
+                className="group relative overflow-hidden rounded-[24px] bg-white shadow-[0_12px_35px_rgba(32,33,36,0.07)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_55px_rgba(227,30,36,0.13)]"
+              >
+                {/* Accent rouge supérieur */}
+                <div className="absolute left-0 top-0 z-10 h-1 w-0 bg-[#E31E24] transition-all duration-500 group-hover:w-full" />
 
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#10243A]/75 via-transparent to-transparent" />
+                {/* Image */}
+                <div className="relative h-64 overflow-hidden bg-gray-100">
+                  <Image
+                    src={formation.image}
+                    alt={formation.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
 
-                      {/* BADGE */}
-                      <div className="absolute bottom-4 left-5 flex items-center gap-2 rounded-full border border-white/20 bg-[#10243A]/70 px-3 py-2 text-white backdrop-blur-md sm:bottom-5 sm:left-6">
-                        <Icon size={16} className="text-[#65D1C9]" />
-                        <span className="text-[10px] font-bold uppercase tracking-wider sm:text-xs">
-                          {formation.category}
-                        </span>
-                      </div>
-                    </div>
-                  </ScrollReveal>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
 
-                  {/* CONTENU */}
-                  <div className="p-5 sm:p-7">
-                    {/* TITRE */}
-                    <ScrollReveal delay={0.05} distance={15}>
-                      <h3 className="text-xl font-bold leading-snug text-[#10243A] sm:text-2xl">
-                        {formation.title}
-                      </h3>
-                    </ScrollReveal>
-
-                    {/* DESCRIPTION */}
-                    <ScrollReveal delay={0.05} distance={15}>
-                      <p className="mt-3 text-justify text-sm leading-7 text-slate-600">
-                        {formation.description}
-                      </p>
-                    </ScrollReveal>
-
-                    {/* COMPÉTENCES */}
-                    <ScrollReveal delay={0.05} distance={15}>
-                      <div className="mt-5 border-t border-slate-100 pt-5">
-                        <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#10243A]">
-                          Compétences abordées
-                        </p>
-
-                        <ul className="space-y-2.5">
-                          {formation.skills.map((skill, skillIndex) => (
-                            <ScrollReveal
-                              key={skill}
-                              delay={skillIndex * 0.08}
-                              distance={12}
-                            >
-                              <li className="flex items-start gap-2.5 text-sm text-slate-600">
-                                <CheckCircle2
-                                  size={17}
-                                  className="mt-0.5 shrink-0 text-[#16A6A1]"
-                                />
-                                <span>{skill}</span>
-                              </li>
-                            </ScrollReveal>
-                          ))}
-                        </ul>
-                      </div>
-                    </ScrollReveal>
-
-                    {/* ACTION */}
-                    <ScrollReveal delay={0.1} distance={15}>
-                      <Link
-                        href="#contact"
-                        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#10243A] px-5 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#16A6A1] sm:w-auto"
-                      >
-                        Demander des informations
-                        <ArrowUpRight size={17} />
-                      </Link>
-                    </ScrollReveal>
+                  <div className="absolute left-5 top-5 flex h-12 w-12 items-center justify-center rounded-xl bg-white text-[#E31E24] shadow-[0_5px_20px_rgba(0,0,0,0.12)] transition-all duration-500 group-hover:-rotate-6 group-hover:scale-110">
+                    <Icon size={23} />
                   </div>
-                </article>
-              </ScrollReveal>
+
+                  <span className="absolute bottom-5 left-5 rounded-full bg-[#E31E24] px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg">
+                    {formation.category}
+                  </span>
+                </div>
+
+                {/* Contenu */}
+                <div className="p-7">
+                  <h3 className="text-xl font-bold leading-snug text-[#202124] transition-colors duration-300 group-hover:text-[#E31E24]">
+                    {formation.title}
+                  </h3>
+
+                  <p className="mt-4 text-sm leading-7 text-gray-600">
+                    {formation.description}
+                  </p>
+
+                  <div className="mt-7 flex items-center justify-between border-t border-gray-100 pt-5">
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-2 text-sm font-bold text-[#E31E24] transition-all duration-300 hover:gap-4"
+                    >
+                      Découvrir la formation
+                      <ArrowUpRight size={18} />
+                    </Link>
+                  </div>
+                </div>
+              </motion.article>
             );
           })}
         </div>
+      </div>
 
-        {/* MESSAGE DE FIN */}
-        <ScrollReveal delay={0.1} distance={20}>
-          <div className="mt-10 text-center sm:mt-14">
-            <p className="text-sm leading-7 text-slate-600">
-              Vous souhaitez en savoir plus sur nos parcours ?
-            </p>
+      {/* Appel à l'action : pleine largeur de l'écran */}
+      <ScrollReveal>
+        <div className="relative mt-10 w-full overflow-hidden bg-[#202124] px-5 py-7 sm:px-10 md:py-8">
+          {/* Décorations */}
+          <div className="pointer-events-none absolute -right-16 -top-24 h-56 w-56 rounded-full border-[30px] border-white/[0.04]" />
+          <div className="pointer-events-none absolute -bottom-24 -left-16 h-56 w-56 rounded-full border-[30px] border-white/[0.04]" />
 
+          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-5 md:flex-row md:justify-between">
+            {/* Texte centré */}
+            <div className="w-full flex-1 text-center">
+              <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-[#E31E24] text-white shadow-lg shadow-red-900/30">
+                <Sparkles size={22} />
+              </div>
+
+              <h3 className="text-xl font-extrabold text-white sm:text-2xl">
+                Vous souhaitez en savoir plus ?
+              </h3>
+
+              <p className="mt-2 text-sm leading-7 text-gray-300 sm:text-base">
+                Notre équipe reste disponible pour vous renseigner sur les
+                possibilités de formation et vous accompagner dans votre
+                démarche.
+              </p>
+            </div>
+
+            {/* Bouton à droite */}
             <Link
-              href="#contact"
-              className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-[#16A6A1] transition-colors hover:text-[#10243A]"
+              href="/contact"
+              className="inline-flex shrink-0 items-center gap-3 rounded-full bg-[#E31E24] px-6 py-3 text-sm font-bold text-white transition-all duration-300 hover:bg-white hover:text-[#E31E24]"
             >
-              Contactez notre équipe
-              <ArrowUpRight size={16} />
+              Contactez-nous
+              <ArrowUpRight size={18} />
             </Link>
           </div>
-        </ScrollReveal>
-      </div>
+        </div>
+      </ScrollReveal>
     </section>
   );
 }

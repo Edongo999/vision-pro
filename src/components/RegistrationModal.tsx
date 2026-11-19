@@ -14,6 +14,7 @@ import {
   BookOpen,
   MessageSquare,
   ShieldCheck,
+  HeartPulse,
 } from "lucide-react";
 
 interface RegistrationModalProps {
@@ -21,29 +22,31 @@ interface RegistrationModalProps {
   onClose: () => void;
 }
 
+const formations = [
+  "Délégué médical",
+  "Auxiliaire de pharmacie",
+  "Auxiliaire de vie",
+  "Assistant(e) de cabinet médical",
+];
+
 export default function RegistrationModal({
   isOpen,
   onClose,
 }: RegistrationModalProps) {
   const [mounted, setMounted] = useState(false);
 
-  // Vérifier que le composant est monté côté navigateur
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Bloquer le défilement de la page et gérer la touche Échap
   useEffect(() => {
     if (!mounted || !isOpen) return;
 
     const previousOverflow = document.body.style.overflow;
-
     document.body.style.overflow = "hidden";
 
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
+      if (event.key === "Escape") onClose();
     };
 
     document.addEventListener("keydown", handleEscape);
@@ -57,14 +60,46 @@ export default function RegistrationModal({
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Connexion à l'API ou au service de réception à mettre en place.
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const fullName = formData.get("fullName") as string;
+    const phone = formData.get("phone") as string;
+    const email = formData.get("email") as string;
+    const formation = formData.get("formation") as string;
+    const message = formData.get("message") as string;
+
+    const whatsappMessage = `
+Bonjour VISION PRO,
+
+Je souhaite obtenir des informations concernant une formation.
+
+*Informations personnelles*
+Nom et prénom : ${fullName}
+Téléphone : ${phone}
+E-mail : ${email}
+
+*Formation souhaitée*
+${formation}
+
+*Message complémentaire*
+${message || "Aucun message supplémentaire."}
+
+Merci de me communiquer les informations nécessaires concernant cette formation.
+    `.trim();
+
+    const whatsappUrl = `https://wa.me/237659322137?text=${encodeURIComponent(
+      whatsappMessage,
+    )}`;
+
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   };
 
   if (!mounted || !isOpen) return null;
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#081827]/85 p-2 backdrop-blur-md sm:p-5"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#202124]/80 p-2 backdrop-blur-sm sm:p-5"
       onClick={onClose}
     >
       <div
@@ -75,37 +110,41 @@ export default function RegistrationModal({
         className="relative flex max-h-[calc(100dvh-16px)] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl sm:max-h-[90vh] sm:rounded-3xl"
       >
         {/* EN-TÊTE */}
-        <div className="relative shrink-0 overflow-hidden bg-[#10243A] px-5 py-5 text-white sm:px-9 sm:py-8">
-          <div className="absolute -right-12 -top-16 h-40 w-40 rounded-full bg-[#16A6A1]/20 blur-3xl sm:h-56 sm:w-56" />
+        <div className="relative shrink-0 overflow-hidden bg-[#202124] px-5 py-6 text-white sm:px-9 sm:py-8">
+          <div className="absolute -right-16 -top-20 h-56 w-56 rounded-full bg-[#E31E24]/20 blur-3xl" />
+          <div className="absolute -bottom-16 left-1/3 h-40 w-40 rounded-full bg-white/5 blur-3xl" />
 
           <button
             type="button"
             onClick={onClose}
             aria-label="Fermer le formulaire"
-            className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition hover:bg-white/20 sm:right-5 sm:top-5 sm:h-10 sm:w-10"
+            className="absolute right-3 top-3 z-20 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition hover:bg-white/20 sm:right-5 sm:top-5 sm:h-10 sm:w-10"
           >
             <X size={19} />
           </button>
 
-          <div className="relative">
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#16A6A1] sm:mb-5 sm:h-12 sm:w-12">
-              <GraduationCap size={23} />
+          <div className="relative z-10">
+            <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#E31E24] shadow-lg shadow-red-900/20 sm:mb-5 sm:h-12 sm:w-12">
+              <GraduationCap size={24} />
             </div>
 
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#65D1C9] sm:text-xs">
-              IFP MEDHE · Admissions
-            </p>
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#E31E24]" />
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 sm:text-xs">
+                VISION PRO · Formation professionnelle
+              </p>
+            </div>
 
             <h2
               id="registration-title"
-              className="mt-1.5 max-w-md pr-8 text-xl font-extrabold leading-tight sm:mt-2 sm:text-3xl"
+              className="mt-3 max-w-md pr-5 text-2xl font-extrabold leading-tight sm:text-3xl"
             >
-              Construisez votre avenir professionnel.
+              Donnez une nouvelle direction à votre avenir.
             </h2>
 
-            <p className="mt-2 max-w-lg text-xs leading-5 text-slate-300 sm:mt-3 sm:text-sm sm:leading-6">
-              Faites le premier pas vers votre formation en remplissant ce
-              formulaire.
+            <p className="mt-3 max-w-lg text-xs leading-6 text-white/65 sm:text-sm">
+              Vous souhaitez rejoindre VISION PRO ? Renseignez vos informations
+              pour échanger avec notre équipe sur votre projet de formation.
             </p>
           </div>
         </div>
@@ -113,26 +152,30 @@ export default function RegistrationModal({
         {/* FORMULAIRE */}
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
           <form onSubmit={handleSubmit} className="px-4 py-5 sm:px-9 sm:py-8">
-            <div className="mb-5 flex items-start gap-2.5 rounded-xl border border-[#16A6A1]/15 bg-[#F1F6F8] p-3 sm:mb-6 sm:gap-3 sm:p-4">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white text-[#16A6A1] sm:h-9 sm:w-9">
-                <ShieldCheck size={18} />
+            {/* INTRODUCTION */}
+            <div className="mb-6 flex items-start gap-3 rounded-xl border border-red-100 bg-[#FFF7F7] p-3.5 sm:p-4">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-[#E31E24] shadow-sm">
+                <ShieldCheck size={19} />
               </div>
 
               <div>
-                <p className="text-xs font-bold text-[#10243A] sm:text-sm">
-                  Demande d'information et d'admission
+                <p className="text-sm font-bold text-[#202124]">
+                  Votre projet de formation commence ici.
                 </p>
-                <p className="mt-1 text-[11px] leading-4 text-slate-500 sm:text-xs sm:leading-5">
-                  Renseignez vos informations pour manifester votre intérêt.
+                <p className="mt-1 text-xs leading-5 text-gray-500">
+                  Transmettez-nous vos coordonnées et la formation qui vous
+                  intéresse. Notre équipe pourra vous renseigner sur les
+                  prochaines étapes.
                 </p>
               </div>
             </div>
 
-            <div className="mb-4 sm:mb-5">
-              <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#10243A] sm:text-sm">
-                Informations personnelles
+            {/* INFORMATIONS PERSONNELLES */}
+            <div className="mb-5">
+              <h3 className="text-xs font-extrabold uppercase tracking-[0.12em] text-[#202124] sm:text-sm">
+                Vos informations personnelles
               </h3>
-              <div className="mt-2 h-1 w-9 rounded-full bg-[#16A6A1]" />
+              <div className="mt-2 h-1 w-10 rounded-full bg-[#E31E24]" />
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
@@ -140,15 +183,15 @@ export default function RegistrationModal({
               <div>
                 <label
                   htmlFor="fullName"
-                  className="mb-1.5 block text-xs font-semibold text-[#10243A] sm:text-sm"
+                  className="mb-2 block text-xs font-semibold text-[#202124] sm:text-sm"
                 >
-                  Nom et prénom <span className="text-[#16A6A1]">*</span>
+                  Nom et prénom <span className="text-[#E31E24]">*</span>
                 </label>
 
                 <div className="relative">
                   <User
                     size={17}
-                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                   />
                   <input
                     id="fullName"
@@ -157,7 +200,7 @@ export default function RegistrationModal({
                     required
                     autoComplete="name"
                     placeholder="Votre nom complet"
-                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-3 text-sm text-[#10243A] outline-none transition placeholder:text-slate-400 focus:border-[#16A6A1] focus:bg-white focus:ring-4 focus:ring-[#16A6A1]/10 sm:h-12 sm:pl-11"
+                    className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 pl-11 pr-3 text-sm text-[#202124] outline-none transition placeholder:text-gray-400 focus:border-[#E31E24] focus:bg-white focus:ring-4 focus:ring-red-100"
                   />
                 </div>
               </div>
@@ -166,15 +209,15 @@ export default function RegistrationModal({
               <div>
                 <label
                   htmlFor="phone"
-                  className="mb-1.5 block text-xs font-semibold text-[#10243A] sm:text-sm"
+                  className="mb-2 block text-xs font-semibold text-[#202124] sm:text-sm"
                 >
-                  Téléphone <span className="text-[#16A6A1]">*</span>
+                  Numéro de téléphone <span className="text-[#E31E24]">*</span>
                 </label>
 
                 <div className="relative">
                   <Phone
                     size={17}
-                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                   />
                   <input
                     id="phone"
@@ -183,7 +226,7 @@ export default function RegistrationModal({
                     required
                     autoComplete="tel"
                     placeholder="+237 6XX XXX XXX"
-                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-3 text-sm text-[#10243A] outline-none transition placeholder:text-slate-400 focus:border-[#16A6A1] focus:bg-white focus:ring-4 focus:ring-[#16A6A1]/10 sm:h-12 sm:pl-11"
+                    className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 pl-11 pr-3 text-sm text-[#202124] outline-none transition placeholder:text-gray-400 focus:border-[#E31E24] focus:bg-white focus:ring-4 focus:ring-red-100"
                   />
                 </div>
               </div>
@@ -192,15 +235,15 @@ export default function RegistrationModal({
               <div className="sm:col-span-2">
                 <label
                   htmlFor="email"
-                  className="mb-1.5 block text-xs font-semibold text-[#10243A] sm:text-sm"
+                  className="mb-2 block text-xs font-semibold text-[#202124] sm:text-sm"
                 >
-                  Adresse e-mail <span className="text-[#16A6A1]">*</span>
+                  Adresse e-mail <span className="text-[#E31E24]">*</span>
                 </label>
 
                 <div className="relative">
                   <Mail
                     size={17}
-                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                   />
                   <input
                     id="email"
@@ -209,7 +252,7 @@ export default function RegistrationModal({
                     required
                     autoComplete="email"
                     placeholder="exemple@email.com"
-                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-3 text-sm text-[#10243A] outline-none transition placeholder:text-slate-400 focus:border-[#16A6A1] focus:bg-white focus:ring-4 focus:ring-[#16A6A1]/10 sm:h-12 sm:pl-11"
+                    className="h-12 w-full rounded-xl border border-gray-200 bg-gray-50 pl-11 pr-3 text-sm text-[#202124] outline-none transition placeholder:text-gray-400 focus:border-[#E31E24] focus:bg-white focus:ring-4 focus:ring-red-100"
                   />
                 </div>
               </div>
@@ -218,32 +261,34 @@ export default function RegistrationModal({
               <div className="sm:col-span-2">
                 <label
                   htmlFor="formation"
-                  className="mb-1.5 block text-xs font-semibold text-[#10243A] sm:text-sm"
+                  className="mb-2 block text-xs font-semibold text-[#202124] sm:text-sm"
                 >
-                  Formation souhaitée <span className="text-[#16A6A1]">*</span>
+                  Formation qui vous intéresse{" "}
+                  <span className="text-[#E31E24]">*</span>
                 </label>
 
                 <div className="relative">
                   <BookOpen
                     size={17}
-                    className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                    className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                   />
+
                   <select
                     id="formation"
                     name="formation"
                     required
                     defaultValue=""
-                    className="h-11 w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-3 text-sm text-[#10243A] outline-none transition focus:border-[#16A6A1] focus:bg-white focus:ring-4 focus:ring-[#16A6A1]/10 sm:h-12 sm:pl-11"
+                    className="h-12 w-full appearance-none rounded-xl border border-gray-200 bg-gray-50 pl-11 pr-4 text-sm text-[#202124] outline-none transition focus:border-[#E31E24] focus:bg-white focus:ring-4 focus:ring-red-100"
                   >
                     <option value="" disabled>
                       Sélectionnez une formation
                     </option>
-                    <option value="Auxiliaire de Vie Sociale">
-                      Auxiliaire de Vie Sociale
-                    </option>
-                    <option value="Auxiliaire de Puériculture">
-                      Auxiliaire de Puériculture
-                    </option>
+
+                    {formations.map((formation) => (
+                      <option key={formation} value={formation}>
+                        {formation}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -252,10 +297,10 @@ export default function RegistrationModal({
               <div className="sm:col-span-2">
                 <label
                   htmlFor="message"
-                  className="mb-1.5 block text-xs font-semibold text-[#10243A] sm:text-sm"
+                  className="mb-2 block text-xs font-semibold text-[#202124] sm:text-sm"
                 >
                   Votre message{" "}
-                  <span className="font-normal text-slate-400">
+                  <span className="font-normal text-gray-400">
                     (facultatif)
                   </span>
                 </label>
@@ -263,42 +308,47 @@ export default function RegistrationModal({
                 <div className="relative">
                   <MessageSquare
                     size={17}
-                    className="absolute left-3.5 top-3.5 text-slate-400"
+                    className="absolute left-3.5 top-3.5 text-gray-400"
                   />
+
                   <textarea
                     id="message"
                     name="message"
                     rows={3}
-                    placeholder="Posez vos questions ou précisez vos attentes..."
-                    className="min-h-[85px] w-full resize-y rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-3 text-sm text-[#10243A] outline-none transition placeholder:text-slate-400 focus:border-[#16A6A1] focus:bg-white focus:ring-4 focus:ring-[#16A6A1]/10 sm:pl-11"
+                    placeholder="Une question sur une formation ? Précisez votre besoin..."
+                    className="min-h-[100px] w-full resize-y rounded-xl border border-gray-200 bg-gray-50 py-3 pl-11 pr-3 text-sm text-[#202124] outline-none transition placeholder:text-gray-400 focus:border-[#E31E24] focus:bg-white focus:ring-4 focus:ring-red-100"
                   />
                 </div>
               </div>
             </div>
 
-            {/* BOUTONS */}
-            <div className="mt-5 flex flex-col-reverse gap-2.5 border-t border-slate-100 pt-5 sm:mt-7 sm:flex-row sm:justify-end sm:gap-3 sm:pt-6">
+            {/* ACTIONS */}
+            <div className="mt-6 flex flex-col-reverse gap-3 border-t border-gray-100 pt-5 sm:flex-row sm:justify-end sm:pt-6">
               <button
                 type="button"
                 onClick={onClose}
-                className="min-h-11 rounded-xl border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
+                className="min-h-12 rounded-xl border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-600 transition hover:bg-gray-50"
               >
                 Annuler
               </button>
 
               <button
                 type="submit"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#16A6A1] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#16A6A1]/20 transition hover:bg-[#128C87] sm:px-7"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#E31E24] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-red-600/20 transition hover:bg-[#C71920] hover:shadow-red-600/30"
               >
-                Envoyer ma demande
+                Continuer sur WhatsApp
                 <ArrowRight size={17} />
               </button>
             </div>
 
-            <p className="mt-4 text-center text-[10px] leading-4 text-slate-400 sm:text-xs sm:leading-5">
-              Vos informations sont destinées au traitement de votre demande
-              auprès de l'IFP MEDHE.
-            </p>
+            {/* NOTE */}
+            <div className="mt-5 flex items-center justify-center gap-2 text-center">
+              <HeartPulse size={14} className="shrink-0 text-[#E31E24]" />
+              <p className="text-[10px] leading-5 text-gray-400 sm:text-xs">
+                VISION PRO vous accompagne dans votre projet de formation
+                professionnelle.
+              </p>
+            </div>
           </form>
         </div>
       </div>
